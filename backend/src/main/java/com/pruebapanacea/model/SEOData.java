@@ -3,6 +3,7 @@ package com.pruebapanacea.model;
 import java.time.Instant;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ public class SEOData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
+	@Column(unique = true)
     private String url;
     private String title;
     private String description;
@@ -30,6 +32,23 @@ public class SEOData {
     private boolean usesHTML5;
     private int imagesCount;
     private Instant createdAt;
+
+	//Constructores
+	public SEOData() {
+	}
+
+	public SEOData(String url, String title, String description, List<String> keywords, int h1Count, int h2Count, int h3Count, boolean usesHTML5, int imagesCount, Instant createdAt) {
+		this.url = url;
+		this.title = title;
+		this.description = description;
+		this.keywords = keywords;
+		this.h1Count = h1Count;
+		this.h2Count = h2Count;
+		this.h3Count = h3Count;
+		this.usesHTML5 = usesHTML5;
+		this.imagesCount = imagesCount;
+		this.createdAt = createdAt;
+	}
 	
 	
 	//Getters y Setters

@@ -5,7 +5,16 @@
         <div class="form-group mb-3">
             <input type="text" class="form-control" id="url" placeholder="URL" name="url" [(ngModel)]="url">
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Analizar</button>
+        <button type="submit" (click)="guardarURL()" class="btn btn-primary mb-2">Analizar</button>
 
     </form>
+</div>
+
+<div>
+    <h2>Listado de URLs Analizadas:</h2>
+    <ul>
+        <li *ngFor="let analisis of analisisList">
+            {{ analisis.id }} - {{ analisis.url }} - {{ analisis.createdAt | date:'medium' }}
+        </li>
+    </ul>
 </div>
