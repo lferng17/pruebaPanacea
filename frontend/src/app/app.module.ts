@@ -7,17 +7,28 @@ import { AnalizadorSeoComponent } from './components/analizador-seo/analizador-s
 import { FormsModule } from '@angular/forms';
 import { AnalizadorSeoService } from './services/analizador-seo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { InformacionEnlaceComponent } from './components/informacion-enlace/informacion-enlace.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HistorialComponent } from './components/historial/historial.component';
+
+const appRoutes: Routes = [
+  { path: '', component: AnalizadorSeoComponent },
+  { path: 'analisis/:id', component: InformacionEnlaceComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnalizadorSeoComponent
+    AnalizadorSeoComponent,
+    InformacionEnlaceComponent,
+    HistorialComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     AnalizadorSeoService

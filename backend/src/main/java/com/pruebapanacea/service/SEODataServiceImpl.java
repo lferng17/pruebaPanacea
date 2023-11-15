@@ -34,6 +34,16 @@ public class SEODataServiceImpl implements SEODataService{
         }
     }
     
+    public SEOData guardarURL(String url) {
+        SEOData seoData = new SEOData();
+        seoData.setUrl(url);
+        return seoDataRepository.save(seoData);
+    }
+
+    public SEOData obtenerURLPorId(int id) {
+        return seoDataRepository.findById(id).orElse(null);
+    }
+    
     @Override
     public List<SEOData> obtenerAnalisis(int limit) {
         return seoDataRepository.findAll(PageRequest.of(0, limit)).getContent();

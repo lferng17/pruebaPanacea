@@ -1,0 +1,11 @@
+<h2 class="h2 text-center mx-auto mt-5">Historial</h2>
+<br><br>
+
+<div class="container">
+    <label>URLS</label>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let url of urls">
+            {{url.id}} -> {{url.url}} -> {{url.createdAt}}
+        </li>
+    </ul>
+</div>

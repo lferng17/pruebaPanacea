@@ -7,14 +7,26 @@ import { Observable } from 'rxjs';
 })
 export class AnalizadorSeoService {
 
-  private baseUrl = 'http://localhost:8080/api/analisis/';
+  private apiServer = 'http://localhost:8080/api/analisis/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   guardarURL(url: string): Observable<any> {
     const body = { url: url };
-    return this.http.post(this.baseUrl, body);
+    return this.httpClient.post(this.apiServer, body);
   }
 
+  obtenerId(url: string): Observable<any> {
+    return this.httpClient.get(`${this.apiServer}id?url=${encodeURIComponent(url)}`);
+  }
+
+  obtenerURL(id: number): Observable<any> {
+    return this.httpClient.get(`${this.apiServer}${id}`);
+
+  }
+
+  obtenerTodasLasURLs(): Observable<any> {
+    return this.httpClient.get(this.apiServer);
+  }
   
 }
