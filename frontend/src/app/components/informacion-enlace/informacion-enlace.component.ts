@@ -14,6 +14,7 @@ export class InformacionEnlaceComponent implements OnInit{
   constructor(private route: ActivatedRoute, private analizadorSeoService: AnalizadorSeoService) { }
 
   ngOnInit() {
+    this.url = {};
     // Obtener el ID de la URL desde la ruta
     this.route.params.subscribe(params => {
       this.urlId = +params['id'];

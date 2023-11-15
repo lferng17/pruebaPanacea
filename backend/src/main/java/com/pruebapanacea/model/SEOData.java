@@ -37,6 +37,10 @@ public class SEOData {
 	public SEOData() {
 	}
 
+	public SEOData(String url) {
+        this.url = url;
+    }
+	
 	public SEOData(String url, String title, String description, List<String> keywords, int h1Count, int h2Count, int h3Count, boolean usesHTML5, int imagesCount, Instant createdAt) {
 		this.url = url;
 		this.title = title;
