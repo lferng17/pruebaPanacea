@@ -1,11 +1,21 @@
-<h1 class="h1 text-center mx-auto mt-5">Análisis SEO de una URL</h1>
+
+<div class="container">
+    <h2 class="lead mx-auto mt-5 mb-5">Buscador</h2>
+</div>
 
 <div class="container d-flex justify-content-center align-items-center">
+
     <form class="form-inline col-6" #form="ngForm">
-        <div class="form-group mb-3">
+
+        <div class="form-inline mb-3">
             <input type="text" class="form-control"  id="url" placeholder="URL" name="url" [(ngModel)]="url">
         </div>
+
+        <div class="d-flex justify-content-center align-items-center">
         <button type="submit" (click)="guardarURL()" class="btn btn-primary mb-2">Analizar</button>
+        </div>
+        
 
     </form>
+    
 </div>

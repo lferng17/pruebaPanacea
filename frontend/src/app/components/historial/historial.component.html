@@ -1,7 +1,6 @@
-<h2 class="h2 text-center mx-auto mt-5">Historial</h2>
-<br><br>
 
 <div class="container">
+    <h2 class="lead mx-auto mt-5 mb-5">Historial</h2>
     <div class="row mb-4 bg-light">
         <div class="col-8">URL</div>
         <div class="col-3">ANALIZADO:</div>
@@ -12,7 +11,7 @@
                     {{url.url}}
                 </a>
             </div>
-        <div class="col-3">{{url.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
+        <div class="col-3 text-muted">{{url.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
     </div>
 </div>
 
