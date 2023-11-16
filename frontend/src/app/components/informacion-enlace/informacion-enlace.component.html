@@ -20,7 +20,11 @@
           </tr>
           <tr>
             <td>Elementos Título</td>
-            <td></td>
+            <td>
+                <div *ngFor="let title of url.titles">
+                    {{title}}
+                </div>
+            </td>
           </tr>
           <tr>
             <td>HTML5</td>

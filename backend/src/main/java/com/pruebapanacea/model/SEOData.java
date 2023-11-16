@@ -26,9 +26,9 @@ public class SEOData {
     
     @ElementCollection
     private List<String> keywords;
-    private int h1Count;
-    private int h2Count;
-    private int h3Count;
+    @ElementCollection
+    private List<String> titles;
+
     private boolean usesHTML5;
     private int imagesCount;
     private Instant createdAt;
@@ -41,14 +41,12 @@ public class SEOData {
         this.url = url;
     }
 	
-	public SEOData(String url, String title, String description, List<String> keywords, int h1Count, int h2Count, int h3Count, boolean usesHTML5, int imagesCount, Instant createdAt) {
+	public SEOData(String url, String title, String description, List<String> keywords, List<String> titles, boolean usesHTML5, int imagesCount, Instant createdAt) {
 		this.url = url;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
-		this.h1Count = h1Count;
-		this.h2Count = h2Count;
-		this.h3Count = h3Count;
+		this.titles = titles;
 		this.usesHTML5 = usesHTML5;
 		this.imagesCount = imagesCount;
 		this.createdAt = createdAt;
@@ -96,29 +94,13 @@ public class SEOData {
 	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
 	}
-	
-	public int getH1Count() {
-		return h1Count;
+
+	public List<String> getTitles() {
+		return titles;
 	}
-	
-	public void setH1Count(int h1Count) {
-		this.h1Count = h1Count;
-	}
-	
-	public int getH2Count() {
-		return h2Count;
-	}
-	
-	public void setH2Count(int h2Count) {
-		this.h2Count = h2Count;
-	}
-	
-	public int getH3Count() {
-		return h3Count;
-	}
-	
-	public void setH3Count(int h3Count) {
-		this.h3Count = h3Count;
+
+	public void setTitles(List<String> titles) {
+		this.titles = titles;
 	}
 	
 	public boolean isUsesHTML5() {

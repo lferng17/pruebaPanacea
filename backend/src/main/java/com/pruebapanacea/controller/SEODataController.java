@@ -1,10 +1,12 @@
 package com.pruebapanacea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -91,7 +93,7 @@ public class SEODataController {
             seoDataResponse.setKeywords(Arrays.asList(keywords.split("\\s*,\\s*")));
 
             // Contar cuántos elementos de tipo título hay (h1, h2, ...)
-            //contarTitulos(document, seoDataResponse);
+            contarTitulos(document, seoDataResponse);
 
             // Detectar si hace uso de etiquetas de HTML5 como <header> y <footer>
             verificarHTML5(document, seoDataResponse);
@@ -108,20 +110,51 @@ public class SEODataController {
     }
     
     private String obtenerMetaContent(Document document, String metaType) {
-        
+        Element metaTag = document.select("meta[name=" + metaType + "]").first();
+        return (metaTag != null) ? metaTag.attr("content") : "";
     }
 
+    /*private void contarTitulos(Document document, SEOData seoDataResponse) {
+        //Contar cuántos elementos de tipo título, es decir, <h1>, <h2>... hay
+        //(contar cada tipo por separado)
+        Map<String, Integer> titulos = new HashMap<>();
+        for (int i = 1; i <= 6; i++) {
+            Elements hTags = document.select("h" + i);
+            titulos.put("h" + i, hTags.size());
+        }
+        seoDataResponse.setTitlesCount(titulos);
+
+    }*/
+
     private void contarTitulos(Document document, SEOData seoDataResponse) {
+        //Contar cuántos elementos de tipo título, es decir, <h1>, <h2>... hay
+        //(contar cada tipo por separado)
+        //Añadirlos a List<String> titles, separados por comas (h1,nºh1,h2,nºh2,...)
+
+        // Contadores para cada tipo de título
+        Map<String, Long> titleCounts = document.select("h1, h2, h3, h4, h5, h6")
+                .stream()
+                .collect(Collectors.groupingBy(Element::tagName, Collectors.counting()));
+
+        // Crear la lista de títulos en el formato deseado (tagName, count)
+        List<String> titlesList = new ArrayList<>();
+        titleCounts.forEach((tagName, count) -> titlesList.add(tagName + "," + count));
+
+        // Asignar la lista de títulos al objeto SEOData
+        seoDataResponse.setTitles(titlesList);
         
+
     }
 
     private void verificarHTML5(Document document, SEOData seoDataResponse) {
-         boolean hasHeader = !document.select("header").isEmpty();
-         boolean hasFooter = !document.select("footer").isEmpty();
-         seoDataResponse.setUsesHTML5(hasHeader && hasFooter);
-     }
+        //Es html5 si contiene las etiquetas <header> y <footer>
+        boolean header = document.toString().contains("<header>");
+        boolean footer = document.toString().contains("<footer>");
+        seoDataResponse.setUsesHTML5(header && footer);
+    }
 
     private int contarImagenes(Document document) {
+        // Contar cuántas imágenes contiene la web (tag <img>)
         Elements images = document.select("img");
         return images.size();
     }
