@@ -8,11 +8,11 @@
     </div>
     <div class="row border-bottom mb-4" *ngFor="let url of urls">
             <div class="col-8">
-                <a [routerLink]="">
+                <a [routerLink]="['/analisis',url.id]">
                     {{url.url}}
                 </a>
             </div>
-        <div class="col-3">{{url.createdAt}}</div>
+        <div class="col-3">{{url.createdAt | date:'dd/MM/yyyy HH:mm' }}</div>
     </div>
 </div>
 
