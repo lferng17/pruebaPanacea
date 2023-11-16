@@ -3,11 +3,11 @@ import { AnalizadorSeoService } from 'src/app/services/analizador-seo.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-analizador-seo',
-  templateUrl: './analizador-seo.component.html',
-  styleUrls: ['./analizador-seo.component.css'],
+  selector: 'app-buscador-seo',
+  templateUrl: './buscador-seo.component.html',
+  styleUrls: ['./buscador-seo.component.css'],
 })
-export class AnalizadorSeoComponent implements OnInit{
+export class BuscadorSeoComponent implements OnInit{
   url: string = '';
   urls: any;
   result: any;

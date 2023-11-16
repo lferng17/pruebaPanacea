@@ -72,7 +72,8 @@ public class SEODataController {
     private SEOData obtenerInformacionSEO(String url) {
         SEOData seoDataResponse = new SEOData();
         seoDataResponse.setUrl(url);
-
+        seoDataResponse.setCreatedAt(java.time.Instant.now());
+        
         try {
             // Realizar scraping con JSoup
             Document document = Jsoup.connect(url).get();
@@ -107,8 +108,7 @@ public class SEODataController {
     }
     
     private String obtenerMetaContent(Document document, String metaType) {
-        Element metaTag = document.select("meta[name=" + metaType + "]").first();
-        return (metaTag != null) ? metaTag.attr("content") : "";
+        
     }
 
     private void contarTitulos(Document document, SEOData seoDataResponse) {
@@ -116,10 +116,10 @@ public class SEODataController {
     }
 
     private void verificarHTML5(Document document, SEOData seoDataResponse) {
-        //Es html5 si contiene la etiqueta <!DOCTYPE html> al inicio del documento
-        boolean isHTML5 = document.toString().contains("<!DOCTYPE html>");
-        seoDataResponse.setUsesHTML5(isHTML5);
-    }
+         boolean hasHeader = !document.select("header").isEmpty();
+         boolean hasFooter = !document.select("footer").isEmpty();
+         seoDataResponse.setUsesHTML5(hasHeader && hasFooter);
+     }
 
     private int contarImagenes(Document document) {
         Elements images = document.select("img");

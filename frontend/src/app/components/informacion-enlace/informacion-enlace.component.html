@@ -1,4 +1,36 @@
-<h2 class="h2 text-center mx-auto mt-5">Análisis de la URL:</h2>
-<h3 class="h3 text-center mx-auto mt-5">{{ url.url }}</h3>
-<h4 class="h4 text-center mx-auto mt-5">Titulo: {{ url.title }}</h4>
-<p> Descripción: {{url.description}}</p>
+<app-historial></app-historial>
+<div class="container">
+    <h2 class="h2 text-center mx-auto mt-5">Informe</h2>
+    <table class="table table-hover">
+        <tbody>
+          <tr>
+            <td class="col-2">URL</td>
+            <td class="col-8">{{url.url}}</td>
+          </tr>
+          <tr>
+            <td>Título</td>
+            <td>{{url.title}}</td>
+          </tr>
+          <tr>
+            <td>Descripción</td>
+            <td>{{url.description}}</td>
+          </tr>
+          <tr>
+            <td>Palabras Clave</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Elementos Título</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>HTML5</td>
+            <td>{{url.usesHTML5}}</td>
+          </tr>
+          <tr>
+            <td>Nº Imágenes</td>
+            <td>{{url.imagesCount}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
