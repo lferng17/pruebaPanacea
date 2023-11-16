@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class SEODataController {
     
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200")  
-    public ResponseEntity<List<SEOData>> obtenerAnalisis(@RequestParam(defaultValue = "50") int limit) {
+    public ResponseEntity<List<SEOData>> obtenerAnalisis(@RequestParam(defaultValue = "15") int limit) {
         List<SEOData> analisis = seoDataService.obtenerAnalisis(limit);
         return new ResponseEntity<>(analisis, HttpStatus.OK);
     }
@@ -46,6 +47,19 @@ public class SEODataController {
     public ResponseEntity<SEOData> obtenerURLPorId(@PathVariable int id) {
 
         SEOData seoData = seoDataService.obtenerURLPorId(id);
+        
+        if (seoData != null) {
+            return new ResponseEntity<>(seoData, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SEOData> borrarURLPorId(@PathVariable int id) {
+
+        SEOData seoData = seoDataService.borrarURLPorId(id);
         
         if (seoData != null) {
             return new ResponseEntity<>(seoData, HttpStatus.OK);
@@ -114,21 +128,8 @@ public class SEODataController {
         return (metaTag != null) ? metaTag.attr("content") : "";
     }
 
-    /*private void contarTitulos(Document document, SEOData seoDataResponse) {
-        //Contar cuántos elementos de tipo título, es decir, <h1>, <h2>... hay
-        //(contar cada tipo por separado)
-        Map<String, Integer> titulos = new HashMap<>();
-        for (int i = 1; i <= 6; i++) {
-            Elements hTags = document.select("h" + i);
-            titulos.put("h" + i, hTags.size());
-        }
-        seoDataResponse.setTitlesCount(titulos);
-
-    }*/
-
     private void contarTitulos(Document document, SEOData seoDataResponse) {
         //Contar cuántos elementos de tipo título, es decir, <h1>, <h2>... hay
-        //(contar cada tipo por separado)
         //Añadirlos a List<String> titles, separados por comas (h1,nºh1,h2,nºh2,...)
 
         // Contadores para cada tipo de título
@@ -136,7 +137,7 @@ public class SEODataController {
                 .stream()
                 .collect(Collectors.groupingBy(Element::tagName, Collectors.counting()));
 
-        // Crear la lista de títulos en el formato deseado (tagName, count)
+        // Crear la lista de títulos (tagName, count)
         List<String> titlesList = new ArrayList<>();
         titleCounts.forEach((tagName, count) -> titlesList.add(tagName + "," + count));
 

@@ -29,4 +29,19 @@ import { Component, OnInit } from '@angular/core';
        );
      });
    }
+
+   eliminarURL() {
+     // Eliminar la URL por ID
+     this.analizadorSeoService.deleteURL(this.urlId).subscribe(
+       data => {
+         console.log('URL eliminada:', data);
+         // Redirigir a buscador
+         window.location.href = '/';
+       },
+       error => {
+         console.error('Error al eliminar URL:', error);
+       }
+     );
+   }
+
  }

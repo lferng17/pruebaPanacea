@@ -28,5 +28,9 @@ export class AnalizadorSeoService {
   obtenerTodasLasURLs(): Observable<any> {
     return this.httpClient.get(this.apiServer);
   }
+
+  deleteURL(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.apiServer}${id}`);
+  }
   
 }

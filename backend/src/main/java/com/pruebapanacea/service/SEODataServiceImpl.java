@@ -18,21 +18,6 @@ public class SEODataServiceImpl implements SEODataService{
 	@Autowired 
     private SEODataRepository seoDataRepository;
 
-    @Override
-    public SEOData analizarSEO(String url) {
-
-        Optional<SEOData> existingUrl = seoDataRepository.findByUrl(url);
-
-        if (existingUrl.isPresent()) {
-            return existingUrl.get();
-        } else{
-            // Lógica de descarga, análisis y guardado en la base de datos
-            SEOData seoData = new SEOData();
-            // análisis SEO y guarda la información en el objeto seoData
-            seoData.setCreatedAt(Instant.now());
-            return seoDataRepository.save(seoData);
-        }
-    }
 
     public SEOData guardarAtributos(SEOData seoData) {
         return seoDataRepository.save(seoData);
@@ -45,6 +30,15 @@ public class SEODataServiceImpl implements SEODataService{
     @Override
     public List<SEOData> obtenerAnalisis(int limit) {
         return seoDataRepository.findAll(PageRequest.of(0, limit)).getContent();
+
+    }
+
+    public SEOData borrarURLPorId(int id) {
+        SEOData seoData = seoDataRepository.findById(id).orElse(null);
+        if (seoData != null) {
+            seoDataRepository.delete(seoData);
+        }
+        return seoData;
     }
     
     public List<SEOData> findAll(){
