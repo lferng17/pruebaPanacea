@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SEOData } from 'src/app/model/seo-data.model';
 import { AnalizadorSeoService } from 'src/app/services/analizador-seo.service';
 
 @Component({
@@ -7,14 +8,14 @@ import { AnalizadorSeoService } from 'src/app/services/analizador-seo.service';
   templateUrl: './informacion-enlace.component.html',
   styleUrls: ['./informacion-enlace.component.css']
 })
-export class InformacionEnlaceComponent implements OnInit{
+export class InformacionEnlaceComponent implements OnInit {
   urlId: number = 0;
-  url: any; 
+  url: SEOData = {} as SEOData;
 
   constructor(private route: ActivatedRoute, private analizadorSeoService: AnalizadorSeoService) { }
 
   ngOnInit() {
-    this.url = {};
+    this.url = {} as SEOData; // Inicializa como objeto SEOData
     // Obtener el ID de la URL desde la ruta
     this.route.params.subscribe(params => {
       this.urlId = +params['id'];

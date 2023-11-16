@@ -32,14 +32,6 @@ public class SEODataController {
 
 	@Autowired
     private SEODataServiceImpl seoDataService;
-
-	@PostMapping
-    @CrossOrigin(origins = "http://localhost:4200")  
-    public ResponseEntity<SEOData> analizarSitio(@RequestBody SEOData SeoDataRequest) {
-    	String url = SeoDataRequest.getUrl();
-        SEOData resultado = seoDataService.guardarURL(url);
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
-    }
     
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200")  
@@ -63,13 +55,25 @@ public class SEODataController {
     
     //------------------------- Web Scrapping -------------------------
     
-    /*@PostMapping
+    @PostMapping
     public ResponseEntity<SEOData> analizarURL(@RequestBody SEOData seoDataRequest) {
         String url = seoDataRequest.getUrl();
+        SEOData resultado = seoDataService.guardarURL(url);
 
+        // Llama al método obtenerInformacionSEO y asigna el resultado a seoDataResponse
         SEOData seoDataResponse = obtenerInformacionSEO(url);
 
-        return new ResponseEntity<>(seoDataResponse, HttpStatus.OK);
+        // Asigna los valores obtenidos a la instancia resultado
+        resultado.setTitle(seoDataResponse.getTitle());
+        //Guardar titulo llamando al metodo guardarTitulo() de SEODataServiceImpl
+        seoDataService.guardarTitulo(seoDataResponse.getTitle());
+        
+        resultado.setDescription(seoDataResponse.getDescription());
+        resultado.setKeywords(seoDataResponse.getKeywords());
+        resultado.setUsesHTML5(seoDataResponse.isUsesHTML5());
+        resultado.setImagesCount(seoDataResponse.getImagesCount());
+
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
     
     private SEOData obtenerInformacionSEO(String url) {
@@ -84,33 +88,33 @@ public class SEODataController {
             String title = document.title();
             seoDataResponse.setTitle(title);
 
-            // Extraer la descripción de la web del tag <meta type="description">
-            //String description = obtenerMetaContent(document, "description");
-            //seoDataResponse.setDescription(description);
+            // Extraer la descripción de la web del tag <meta name="description">
+            String description = obtenerMetaContent(document, "description");
+            seoDataResponse.setDescription(description);
 
-            // Extraer la lista de palabras clave del tag <meta type="keywords">
-            //String keywords = obtenerMetaContent(document, "keywords");
-            //seoDataResponse.setKeywords(Arrays.asList(keywords.split("\\s*,\\s*")));
+            // Extraer la lista de palabras clave del tag <meta name="keywords">
+            String keywords = obtenerMetaContent(document, "keywords");
+            seoDataResponse.setKeywords(Arrays.asList(keywords.split("\\s*,\\s*")));
 
             // Contar cuántos elementos de tipo título hay (h1, h2, ...)
             //contarTitulos(document, seoDataResponse);
 
             // Detectar si hace uso de etiquetas de HTML5 como <header> y <footer>
-            //verificarHTML5(document, seoDataResponse);
+            verificarHTML5(document, seoDataResponse);
 
             // Contar cuántas imágenes contiene la web
-            //int imagesCount = contarImagenes(document);
-            //seoDataResponse.setImagesCount(imagesCount);
+            int imagesCount = contarImagenes(document);
+            seoDataResponse.setImagesCount(imagesCount);
 
         } catch (IOException e) {
             System.out.println("Error en la petición HTTP");
         }
 
         return seoDataResponse;
-    }*/
+    }
     
-    /*private String obtenerMetaContent(Document document, String metaType) {
-        Element metaTag = document.select("meta[type=" + metaType + "]").first();
+    private String obtenerMetaContent(Document document, String metaType) {
+        Element metaTag = document.select("meta[name=" + metaType + "]").first();
         return (metaTag != null) ? metaTag.attr("content") : "";
     }
 
@@ -119,15 +123,15 @@ public class SEODataController {
     }
 
     private void verificarHTML5(Document document, SEOData seoDataResponse) {
-        boolean hasHeader = !document.select("header").isEmpty();
-        boolean hasFooter = !document.select("footer").isEmpty();
-        seoDataResponse.setUsesHTML5(hasHeader && hasFooter);
+        //Es html5 si contiene la etiqueta <!DOCTYPE html> al inicio del documento
+        boolean isHTML5 = document.toString().contains("<!DOCTYPE html>");
+        seoDataResponse.setUsesHTML5(isHTML5);
     }
 
     private int contarImagenes(Document document) {
         Elements images = document.select("img");
         return images.size();
-    }*/
+    }
     
 	
 }

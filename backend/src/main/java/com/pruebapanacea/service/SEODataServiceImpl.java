@@ -40,6 +40,12 @@ public class SEODataServiceImpl implements SEODataService{
         return seoDataRepository.save(seoData);
     }
 
+    public SEOData guardarTitulo(String titulo) {
+        SEOData seoData = new SEOData();
+        seoData.setTitle(titulo);
+        return seoDataRepository.save(seoData);
+    }
+
     public SEOData obtenerURLPorId(int id) {
         return seoDataRepository.findById(id).orElse(null);
     }
