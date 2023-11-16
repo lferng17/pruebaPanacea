@@ -57,23 +57,16 @@ public class SEODataController {
     
     @PostMapping
     public ResponseEntity<SEOData> analizarURL(@RequestBody SEOData seoDataRequest) {
+    	
         String url = seoDataRequest.getUrl();
-        SEOData resultado = seoDataService.guardarURL(url);
 
         // Llama al método obtenerInformacionSEO y asigna el resultado a seoDataResponse
         SEOData seoDataResponse = obtenerInformacionSEO(url);
 
-        // Asigna los valores obtenidos a la instancia resultado
-        resultado.setTitle(seoDataResponse.getTitle());
-        //Guardar titulo llamando al metodo guardarTitulo() de SEODataServiceImpl
-        seoDataService.guardarTitulo(seoDataResponse.getTitle());
-        
-        resultado.setDescription(seoDataResponse.getDescription());
-        resultado.setKeywords(seoDataResponse.getKeywords());
-        resultado.setUsesHTML5(seoDataResponse.isUsesHTML5());
-        resultado.setImagesCount(seoDataResponse.getImagesCount());
+        // Guardar todos los atributos llamando al metodo guardarAtributos() de SEODataServiceImpl
+        seoDataService.guardarAtributos(seoDataResponse);
 
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
+        return new ResponseEntity<>(seoDataResponse, HttpStatus.OK);
     }
     
     private SEOData obtenerInformacionSEO(String url) {

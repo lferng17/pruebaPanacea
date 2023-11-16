@@ -33,16 +33,8 @@ public class SEODataServiceImpl implements SEODataService{
             return seoDataRepository.save(seoData);
         }
     }
-    
-    public SEOData guardarURL(String url) {
-        SEOData seoData = new SEOData();
-        seoData.setUrl(url);
-        return seoDataRepository.save(seoData);
-    }
 
-    public SEOData guardarTitulo(String titulo) {
-        SEOData seoData = new SEOData();
-        seoData.setTitle(titulo);
+    public SEOData guardarAtributos(SEOData seoData) {
         return seoDataRepository.save(seoData);
     }
 
