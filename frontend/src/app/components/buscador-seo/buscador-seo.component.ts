@@ -27,11 +27,16 @@ export class BuscadorSeoComponent implements OnInit{
     if (this.url.trim() !== '') {
       this.analizadorSeoService.guardarURL(this.url).subscribe(
         data => {
-          console.log('URL guardada correctamente:', data);
+          // EL IF NO FUNCIONA PORQUE DATA NO ALMACENA EL STATUS CODE
+          if (data.status === 201) {
+            console.log('URL guardada correctamente:', data);
+          } else if (data.status === 200) {
+            console.warn('La URL ya existe en la base de datos. Puedes ver el informe existente.', data);
+          }
           this.router.navigate(['/analisis', data.id]);
         },
         error => {
-          console.error('Error al guardar la URL:', error);
+          console.error('Error al guardar la URL:', error);       
         }
       );
     } else {

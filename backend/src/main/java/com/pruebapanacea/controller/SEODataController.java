@@ -71,14 +71,20 @@ public class SEODataController {
     public ResponseEntity<SEOData> analizarURL(@RequestBody SEOData seoDataRequest) {
     	
         String url = seoDataRequest.getUrl();
+        //Comprobar si la url ya existe en la base de datos
+        SEOData urlExistente = seoDataService.existeURL(url);
 
-        // Llama al método obtenerInformacionSEO y asigna el resultado a seoDataResponse
-        SEOData seoDataResponse = obtenerInformacionSEO(url);
+        if (urlExistente == null) {
+            // Llama al método obtenerInformacionSEO y asigna el resultado a seoDataResponse
+            SEOData seoDataResponse = obtenerInformacionSEO(url);
 
-        // Guardar todos los atributos llamando al metodo guardarAtributos() de SEODataServiceImpl
-        seoDataService.guardarAtributos(seoDataResponse);
+            // Guardar todos los atributos llamando al metodo guardarAtributos() de SEODataServiceImpl
+            seoDataService.guardarAtributos(seoDataResponse);
 
-        return new ResponseEntity<>(seoDataResponse, HttpStatus.OK);
+            return new ResponseEntity<>(seoDataResponse, HttpStatus.CREATED);        
+        } else {
+            return new ResponseEntity<>(urlExistente, HttpStatus.OK);
+        }
     }
     
     private SEOData obtenerInformacionSEO(String url) {

@@ -26,6 +26,10 @@ public class SEODataServiceImpl implements SEODataService{
     public SEOData obtenerURLPorId(int id) {
         return seoDataRepository.findById(id).orElse(null);
     }
+
+    public SEOData existeURL(String url) {
+		return seoDataRepository.findByUrl(url).orElse(null);
+	}
     
     @Override
     public List<SEOData> obtenerAnalisis(int limit) {
@@ -40,6 +44,5 @@ public class SEODataServiceImpl implements SEODataService{
     public List<SEOData> findAll(){
 		return seoDataRepository.findAll();
 	}
-	
-	
+
 }
