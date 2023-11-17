@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
- import { ActivatedRoute } from '@angular/router';
+ import { ActivatedRoute, Router } from '@angular/router';
  import { AnalizadorSeoService } from 'src/app/services/analizador-seo.service';
 
  @Component({
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
    urlId: number = 0;
    url: any = {}; 
 
-   constructor(private route: ActivatedRoute, private analizadorSeoService: AnalizadorSeoService) { }
+   constructor(private route: ActivatedRoute, private router: Router, private analizadorSeoService: AnalizadorSeoService) { }
 
    ngOnInit() {
      // Obtener el ID de la URL desde la ruta
@@ -31,17 +31,19 @@ import { Component, OnInit } from '@angular/core';
    }
 
    eliminarURL() {
-     // Eliminar la URL por ID
-     this.analizadorSeoService.deleteURL(this.urlId).subscribe(
-       data => {
-         console.log('URL eliminada:', data);
-         // Redirigir a buscador
-         window.location.href = '/';
-       },
-       error => {
-         console.error('Error al eliminar URL:', error);
-       }
-     );
-   }
+    if (confirm('¿Estás seguro de que quieres eliminar esta URL?')) {
+      this.analizadorSeoService.deleteURL(this.urlId).subscribe(
+        () => {
+          console.log('URL eliminada correctamente');
+          // Redirigir a la página principal
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.router.navigate(['/']);
+          console.error('Error al eliminar URL:', error);
+        }
+      );
+    }
+  }
 
  }

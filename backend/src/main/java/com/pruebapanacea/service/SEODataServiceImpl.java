@@ -33,18 +33,13 @@ public class SEODataServiceImpl implements SEODataService{
 
     }
 
-    public SEOData borrarURLPorId(int id) {
-        SEOData seoData = seoDataRepository.findById(id).orElse(null);
-        if (seoData != null) {
-            seoDataRepository.delete(seoData);
-        }
-        return seoData;
-    }
+    public void borrarURLPorId(int id) {
+        seoDataRepository.deleteById(id);	
+	}
     
     public List<SEOData> findAll(){
 		return seoDataRepository.findAll();
 	}
-
 	
 	
 }

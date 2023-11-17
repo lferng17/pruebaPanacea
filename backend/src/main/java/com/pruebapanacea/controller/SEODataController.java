@@ -57,15 +57,11 @@ public class SEODataController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SEOData> borrarURLPorId(@PathVariable int id) {
+    public ResponseEntity<Boolean> borrarURLPorId(@PathVariable int id) {
 
-        SEOData seoData = seoDataService.borrarURLPorId(id);
+        seoDataService.borrarURLPorId(id);
         
-        if (seoData != null) {
-            return new ResponseEntity<>(seoData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok(!(seoDataService.obtenerURLPorId(id)!= null));
         
     }
     
