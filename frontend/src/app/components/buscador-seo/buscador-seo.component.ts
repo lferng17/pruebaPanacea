@@ -16,10 +16,8 @@ export class BuscadorSeoComponent implements OnInit{
   constructor(private analizadorSeoService: AnalizadorSeoService, private router: Router) {}
 
   ngOnInit() {
-    //this.obtenerAnalisis();
     this.analizadorSeoService.obtenerTodasLasURLs().subscribe(data=>{
       this.urls = data;
-      console.log(data);
     }, error=>{
       console.log(error);
     })

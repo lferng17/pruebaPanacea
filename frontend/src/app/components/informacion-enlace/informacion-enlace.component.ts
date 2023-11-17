@@ -17,7 +17,6 @@ import { Component, OnInit } from '@angular/core';
      // Obtener el ID de la URL desde la ruta
      this.route.params.subscribe(params => {
        this.urlId = +params['id'];
-       console.log('ID de la URL:', this.urlId);
        // Obtener detalles de la URL por ID
        this.analizadorSeoService.obtenerURL(this.urlId).subscribe(
          data => {
