@@ -16,7 +16,11 @@
           </tr>
           <tr>
             <td>Palabras Clave</td>
-            <td></td>
+            <td>
+                <div *ngFor="let keyword of url.keywords">
+                    <span class="bg-light">{{keyword}}</span>
+                </div>
+            </td>
           </tr>
           <tr>
             <td>Elementos Título</td>

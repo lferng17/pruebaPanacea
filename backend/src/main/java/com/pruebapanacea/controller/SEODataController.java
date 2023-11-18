@@ -30,7 +30,7 @@ import com.pruebapanacea.service.SEODataService;
 import com.pruebapanacea.service.SEODataServiceImpl;
 
 @RestController
-@RequestMapping("/api/analisis/")
+@RequestMapping("/analisis/")
 public class SEODataController {
 
 	@Autowired

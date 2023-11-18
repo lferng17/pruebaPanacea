@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pruebapanacea.model.SEOData;
@@ -33,7 +34,13 @@ public class SEODataServiceImpl implements SEODataService{
     
     @Override
     public List<SEOData> obtenerAnalisis(int limit) {
-        return seoDataRepository.findAll(PageRequest.of(0, limit)).getContent();
+    	// Ordena por fecha de creación descendente
+        Sort recientesPrimero = Sort.by(Sort.Direction.DESC, "createdAt");
+
+        // Limita el resultado al número especificado
+        PageRequest pageRequest = PageRequest.of(0, limit, recientesPrimero);
+
+        return seoDataRepository.findAll(pageRequest).getContent();
 
     }
 

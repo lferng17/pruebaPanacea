@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AnalizadorSeoService {
 
-  private apiServer = 'http://localhost:8080/api/analisis/';
+  private apiServer = 'http://localhost:8080/analisis/';
 
   constructor(private httpClient: HttpClient) { }
 
