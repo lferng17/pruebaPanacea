@@ -10,10 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { InformacionEnlaceComponent } from './components/informacion-enlace/informacion-enlace.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HistorialComponent } from './components/historial/historial.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { ResultsPageComponent } from './pages/results-page/results-page.component';
 
 const appRoutes: Routes = [
-  { path: '', component: BuscadorSeoComponent },
-  { path: 'analisis/:id', component: InformacionEnlaceComponent },
+  { path: '', component: LandingPageComponent },
+  { path: 'analisis/:id', component: ResultsPageComponent },
 ];
 
 @NgModule({
@@ -21,7 +23,9 @@ const appRoutes: Routes = [
     AppComponent,
     BuscadorSeoComponent,
     InformacionEnlaceComponent,
-    HistorialComponent
+    HistorialComponent,
+    LandingPageComponent,
+    ResultsPageComponent
   ],
   imports: [
     BrowserModule,

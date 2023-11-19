@@ -26,13 +26,13 @@
             <td>Elementos Título</td>
             <td>
                 <div *ngFor="let title of url.titles">
-                    {{title}}
+                    {{title.replace(',', ' -> ')}}
                 </div>
             </td>
           </tr>
           <tr>
             <td>HTML5</td>
-            <td>{{url.usesHTML5}}</td>
+            <td>{{url.usesHTML5}} <span style="font-size: 80%;"> (En base a si contiene las etiquetas header y footer)</span></td>
           </tr>
           <tr>
             <td>Nº Imágenes</td>
@@ -44,8 +44,3 @@
       <button type="submit" class="bi bi-archive-fill btn btn-danger mb-2 mr-2" (click)="eliminarURL()"> Eliminar</button>
     </div>
 </div>
-<app-buscador-seo></app-buscador-seo>
-<br>
-<app-historial></app-historial>
-<br>
-

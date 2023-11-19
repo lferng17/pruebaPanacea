@@ -151,9 +151,9 @@ public class SEODataController {
 
     private void verificarHTML5(Document document, SEOData seoDataResponse) {
         //Es html5 si contiene las etiquetas <header> y <footer>
-        boolean header = document.toString().contains("<header>");
-        boolean footer = document.toString().contains("<footer>");
-        seoDataResponse.setUsesHTML5(header && footer);
+        Elements header = document.select("header");
+        Elements footer = document.select("footer");
+        seoDataResponse.setUsesHTML5(header.size() > 0 && footer.size() > 0);
     }
 
     private int contarImagenes(Document document) {
